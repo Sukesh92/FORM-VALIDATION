@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="script.js"></script>
+    <style>
+        form {
+            width: 50%;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            background-color: rgba(241, 241, 245, 0.8);
+        }
+
+        .result-block {
+            border: 10px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+            background-color: #ecdc92;
+        }
+
+        .profile-photo-container {
+            margin-top: 10px;
+        }
+
+        .profile-photo {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row mb-3">
+            <div class="col-md-12 mx-auto">
+                <h1 style="text-align: center; font-weight: bold;">Registration Form</h1>
+            </div>
+        </div>
+
+        <div class="row mb-6">
+            <div class="col-md-5 mx-auto">
+                <div class="input-group">
+                    <input type="search" class="form-control rounded" id="searchInput" placeholder="Search"
+                        aria-label="Search" oninput="searchData()" aria-describedby="search-addon" />
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+
+        <div class="row" id="existingContent">
+            <div class="col-md-12">
+                <form id="registrationform" onsubmit="validateForm(event)">
+
+                    <div class="form-group col-md-12">
+                        <label for="validationDefault01">Name</label>
+                        <input type="text" class="form-control" id="validationDefault01" placeholder="Your Name"
+                            required oninput="validateName()">
+                        <div id="nameValidationMessage" class="text-danger"></div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                            placeholder="abc@gmail.com" required oninput="validateEmail()">
+                        <div id="emailValidationMessage" class="text-danger"></div>
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        <label for="phone_no">Phone Number</label>
+                        <input type="text" name="num" data-validation="number"
+                            data-validation-allowing="negative,number" input name="color" data-validation="number"
+                            datavalidation-ignore="$" required="required" class="form-control" id="phone_no"
+                            placeholder="Phone Number" oninput="validatePhoneNumber()">
+                        <div id="phoneValidationMessage" class="text-danger"></div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="dob">Date Of Birth</label>
+                        <br>
+                        <input id="dob" type="date" oninput="validateDate()" class="form-control" required>
+                        
+                        <span id="dateError" style="color:red;"></span>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="selectgender">Gender</label>
+                        <select class="custom-select" id="selectgender" required oninput="validateGen()">
+                            <option disabled selected>--select--</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="others">Others</option>
+                        </select>
+                    </div>
+
+
+                    <div class="form-group col-md-12">
+                        <label for="validationCustom02">Occupation</label>
+                        <input type="text" class="form-control is-valid" id="validationCustom02" value="">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="select">Education</label>
+                        <select class="custom-select" id="select" oninput="validateEdu()" required>
+                            <option value="" selected disabled>--select--</option>
+                            <option value="B.E">B.E</option>
+                            <option value="BSc">BSc</option>
+                            <option value="MSc">MSc</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        <label for="validationCustomUsername">Username</label>
+                        <div class="input-group has-validation">
+                            <span class="input-group-text" id="inputGroupPrepend">@</span>
+                            <input type="text" class="form-control" id="validationCustomUsername"
+                                aria-describedby="inputGroupPrepend" required oninput="validateUserName() ">
+                        </div>
+                        <span id="usernameError"></span>
+
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="panNumber" >PAN Number</label>
+                        <input type="text" class="form-control" id="panNumber" placeholder="Ex:ABCDE1234A" required
+                            oninput="validatePAN()">
+
+                        <div id="panValidationMessage" class="text-danger"></div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" placeholder="Enter password" required
+                            oninput="validatePassword()">
+                        <small id="passwordHelp" class="form-text text-muted"></small>
+                        <div id="passwordValidationMessage" class="text-danger"></div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="exampleFormControlFile1">User's Profile</label>
+                        <input type="file" class="form-control" id="exampleFormControlFile1" accept=".png, .jpeg"
+                            required onchange="validateFileSize()">
+                        <div id="fileSizeValidationMessage" class="text-danger"></div>
+                    </div>
+                    
+
+                    <div>
+                        <button type="submit" style="background-color:black"
+                            class="btn btn-primary mt-3  mx-auto d-block col-md-12">Submit</button>
+                    </div>
+
+
+                </form>
+                <div>
+                    <br>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="searchResultsHeading"></div>
+    <div id="resultContainer"></div>
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
